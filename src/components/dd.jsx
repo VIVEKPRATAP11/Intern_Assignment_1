@@ -1,28 +1,5 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Pie, Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-} from "chart.js";
-
-ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title
-);
 
 const Leaderboard = () => {
   const [slippage, setSlippage] = useState("0%");
@@ -122,6 +99,7 @@ const Leaderboard = () => {
       winPercentage: 0.62,
       price: "-",
     },
+
   ]);
 
   const calmarSymbol = "📈";
@@ -190,42 +168,8 @@ const Leaderboard = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const pieData = {
-    labels: data.map((item) => item.name),
-    datasets: [
-      {
-        data: data.map((item) => item.winPercentage * 100),
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-        ],
-      },
-    ],
-  };
-
-  const lineData = {
-    labels: data.map((item) => item.rank),
-    datasets: [
-      {
-        label: "Avg. Daily Profit",
-        data: data.map((item) => item.avgDailyProfit),
-        fill: false,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "rgba(75,192,192,1)",
-      },
-    ],
-  };
-
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex justify-center mt-10">
       <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-11/12 md:w-4/5">
         <h1 className="text-4xl font-bold mb-6 text-center">LeaderBoards</h1>
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -409,23 +353,6 @@ const Leaderboard = () => {
           </AnimatePresence>
         </div>
         <div className="flex justify-center mt-6">{renderPageNumbers()}</div>
-      </div>
-
-      {/* Add the Pie and Line charts here */}
-      <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6 mt-10">
-      <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-80 md:w-96 mt-10">
-        <h2 className="text-indigo-500 text-2xl font-bold mb-6 text-center">PieChart</h2>
-        <h2 className="text-2xl font-bold mb-6 text-center">Win Percentage Distribution</h2>
-        <Pie data={pieData} />
-      </div>
-        <div className="bg-gray-900 text-white p-4 rounded-lg shadow-lg w-80 md:w-96">
-          <h2 className="text-indigo-500 text-2xl font-bold mb-4 text-center">LineChart</h2>
-          <h2 className="text-2xl font-bold mb-4 text-center">Average Daily Profit Trend</h2>
-          <div className="h-64">
-            <Line data={lineData} />
-            <h1>Rank ➡️</h1>
-          </div>
-        </div>
       </div>
     </div>
   );
